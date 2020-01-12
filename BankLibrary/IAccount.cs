@@ -4,8 +4,9 @@ using System.Text;
 
 namespace BankLibrary
 {
-    class Class1
+    public interface IAccount
     {
-
+        void Put(decimal sum);
+        decimal Withdraw(decimal sum);
     }
 }
