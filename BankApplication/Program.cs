@@ -8,6 +8,7 @@ namespace BankApplication
         static void Main(string[] args)
         {
             Bank<Account> bank = new Bank<Account>("UnitBank");
+            
             bool alive = true;
 
             while (alive)
@@ -56,6 +57,7 @@ namespace BankApplication
         }
         private static void OpenAccount(Bank<Account> bank)
         {
+           
             Console.WriteLine("Enter the amount to create an account:");
 
             decimal sum = Convert.ToDecimal(Console.ReadLine());
@@ -73,7 +75,7 @@ namespace BankApplication
                 accountType = AccountType.Ordinary;
             }
 
-            bank.Open(accountType, sum, AddSumHandler, WithdrawSumHandler, (o, e) => Console.WriteLine(e.Message), CloseAccountHandler, OpenAccountHandler);
+            bank.Open(accountType, sum);
         }
 
         private static void Withdraw(Bank<Account> bank)
@@ -104,28 +106,6 @@ namespace BankApplication
             int id = Convert.ToInt32(Console.ReadLine());
 
             bank.Close(id);
-        }
-
-        private static void OpenAccountHandler(object sender, AccountEventArgs e)
-        {
-            Console.WriteLine(e.Message);
-        }
-        
-        private static void AddSumHandler(object sender, AccountEventArgs e)
-        {
-            Console.WriteLine(e.Message);
-        }
-        
-        private static void WithdrawSumHandler(object sender, AccountEventArgs e)
-        {
-            Console.WriteLine(e.Message);
-            if (e.Sum > 0)
-                Console.WriteLine("Let's go spend money");
-        }
-        
-        private static void CloseAccountHandler(object sender, AccountEventArgs e)
-        {
-            Console.WriteLine(e.Message);
         }
     }
 }

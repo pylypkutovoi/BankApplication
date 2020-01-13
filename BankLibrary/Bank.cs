@@ -20,10 +20,7 @@ namespace BankLibrary
             this.Name = name;
         }
 
-        public void Open(AccountType accountType, decimal sum,
-    AccountStateHandler addSumHandler, AccountStateHandler withdrawSumHandler,
-    AccountStateHandler calculationHandler, AccountStateHandler closeAccountHandler,
-    AccountStateHandler openAccountHandler)
+        public void Open(AccountType accountType, decimal sum)
         {
             T newAccount = null;
 
@@ -56,11 +53,11 @@ namespace BankLibrary
                 tempAccounts[tempAccounts.Length - 1] = newAccount;
                 accounts = tempAccounts;
             }
-            newAccount.Added += addSumHandler;
-            newAccount.Withdrawed += withdrawSumHandler;
-            newAccount.Closed += closeAccountHandler;
-            newAccount.Opened += openAccountHandler;
-            newAccount.Calculated += calculationHandler;
+            newAccount.Added += AddSumHandler;
+            newAccount.Withdrawed += WithdrawSumHandler;
+            newAccount.Closed += CloseAccountHandler;
+            newAccount.Opened += OpenAccountHandler;
+            newAccount.Calculated += CalculationHandler;
 
             newAccount.Open();
         }
@@ -153,5 +150,32 @@ namespace BankLibrary
             index = -1;
             return null;
         }
+        public void OpenAccountHandler(object sender, AccountEventArgs e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        public void AddSumHandler(object sender, AccountEventArgs e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        public void WithdrawSumHandler(object sender, AccountEventArgs e)
+        {
+            Console.WriteLine(e.Message);
+            if (e.Sum > 0)
+                Console.WriteLine("Let's go spend money");
+        }
+
+        public void CloseAccountHandler(object sender, AccountEventArgs e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        public void CalculationHandler(object sender, AccountEventArgs e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
+
 }
